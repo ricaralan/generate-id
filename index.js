@@ -1,10 +1,12 @@
 /**
+* Tis module help to generate ids
 *
 * @author Alan Olivares
+* @version 1.3.1
 */
-var generateId =  function () {
+module.exports = function () {
 
-  addToArrayAlphabetUpperCase = function(array) {
+  function addToArrayAlphabetUpperCase(array) {
     try{
       for(var j = 65; j < 91; j++) {
         array.push(String.fromCharCode(j));
@@ -14,7 +16,7 @@ var generateId =  function () {
     }
   };
 
-  addToArrayAlphabetDownCase = function(array) {
+  function addToArrayAlphabetDownCase(array) {
     try{
       for(var j = 97; j < 123; j++) {
         array.push(String.fromCharCode(j));
@@ -24,7 +26,7 @@ var generateId =  function () {
     }
   };
 
-  addToArrayNaturalNumbers = function(array) {
+  function addToArrayNaturalNumbers(array) {
     try{
       for(var i = 0; i <=9; i++) {
         array.push(i);
@@ -34,21 +36,47 @@ var generateId =  function () {
     }
   };
 
-  getRandomNumer = function(min, max) {
+  function getRandomNumer(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
   };
 
-  this.generate = function(requiredLength) {
-    var letters = [];
-    addToArrayAlphabetUpperCase(letters)
-    addToArrayNaturalNumbers(letters)
-    cadena = "";
-    for(var i = 0; i < requiredLength; i++) {
-      cadena += letters[getRandomNumer(0, letters.length -1)];
+  function getArrayGenerate(options) {
+    array = [];
+    if(options && options instanceof Object) {
+      for(i in options) {
+        if(options[i] === "down") {addToArrayAlphabetDownCase(array)}
+        if(options[i] === "upper") {addToArrayAlphabetUpperCase(array)}
+        if(options[i] === "numbers") {addToArrayNaturalNumbers(array)}
+      }
+    } else {
+      addToArrayAlphabetDownCase(array);
+      addToArrayAlphabetUpperCase(array);
+      addToArrayNaturalNumbers(array);
     }
-    return cadena;
+    return array;
+  }
+
+  function getWordAdd(word, options) {
+    if(options && options.add) {
+      word  = (options.add.before) ? options.add.before + word : word;
+      word += (options.add.after)  ? options.add.after : "";
+    }
+    return word;
+  }
+
+  function getRequiredLength(options){
+    return (options instanceof Object && options.length) ? options.length : options;
+  }
+
+  this.generate = function(options) {
+    var letters = getArrayGenerate(options.include);
+    requiredLength = getRequiredLength(options);
+    word = "";
+    for(var i = 0; i < requiredLength; i++) {
+      word += letters[getRandomNumer(0, letters.length -1)];
+    }
+
+    return getWordAdd(word, (options instanceof Object) ? options : null );
   };
 
 }
-
-module.exports = new generateId();
