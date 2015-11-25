@@ -2,7 +2,7 @@
 * This module help to generate ids
 *
 * @author Alan Olivares
-* @version 1.4.1
+* @version 1.5.1
 */
 module.exports = function () {
 
