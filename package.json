@@ -13,6 +13,9 @@
     "generateid",
     "generatorids",
     "generator-ids",
+    "generate-random-id",
+    "random-id",
+    "random-ids",
     "generate-id"
   ],
   "author": "Alan Olivares <richard.alan.oli@gmail.com> (https://github.com/ricaralan)",
