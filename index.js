@@ -2,58 +2,43 @@
 * This module help to generate ids
 *
 * @author Alan Olivares
-* @version 1.5.1
+* @version 1.6.1
 */
 module.exports = function () {
 
-  function addToArrayAlphabetUpperCase(array) {
-    try{
-      for(var j = 65; j < 91; j++) {
-        array.push(String.fromCharCode(j));
-      }
-    }catch(e) {
-      console.log(e);
-    }
+  var toGenerate = {
+    down    : "abcdefghijklmnopqrstuvwxyz",
+    upper   : "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    numbers : "0123456789"
   };
 
-  function addToArrayAlphabetDownCase(array) {
-    try{
-      for(var j = 97; j < 123; j++) {
-        array.push(String.fromCharCode(j));
-      }
-    }catch(e) {
-      console.log(e);
+  this.generate = function(optionsIn) {
+    var optionsGenerate = getArrayToGenerate(optionsIn.include);
+    requiredLength = getRequiredLength(optionsIn);
+    word = "";
+    for(var i = 0; i < requiredLength; i++) {
+      keys = Object.keys(optionsGenerate);
+      option = optionsGenerate[keys[getRandom(0, keys.length )]];
+      word += option[getRandom(0, option.length -1)];
     }
+    return getWordAdd(word, (optionsIn instanceof Object) ? optionsIn : null );
   };
 
-  function addToArrayNaturalNumbers(array) {
-    try{
-      for(var i = 0; i <=9; i++) {
-        array.push(i);
-      }
-    }catch(e) {
-      console.log(e);
-    }
-  };
-
-  function getRandomNumer(min, max) {
+  function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
   };
 
-  function getArrayGenerate(options) {
-    array = [];
-    if(options && options instanceof Object) {
+  function getArrayToGenerate(options) {
+    if(options && options instanceof Object && options.length > 0) {
+      array = [];
       for(i in options) {
-        if(options[i] === "down") {addToArrayAlphabetDownCase(array)}
-        if(options[i] === "upper") {addToArrayAlphabetUpperCase(array)}
-        if(options[i] === "numbers") {addToArrayNaturalNumbers(array)}
+        if(toGenerate[options[i]]) {
+          array.push(toGenerate[options[i]]);
+        }
       }
-    } else {
-      addToArrayAlphabetDownCase(array);
-      addToArrayAlphabetUpperCase(array);
-      addToArrayNaturalNumbers(array);
+      return array;
     }
-    return array;
+    return toGenerate;
   }
 
   function getWordAdd(word, options) {
@@ -67,16 +52,5 @@ module.exports = function () {
   function getRequiredLength(options){
     return (options instanceof Object && options.length) ? options.length : options;
   }
-
-  this.generate = function(options) {
-    var letters = getArrayGenerate(options.include);
-    requiredLength = getRequiredLength(options);
-    word = "";
-    for(var i = 0; i < requiredLength; i++) {
-      word += letters[getRandomNumer(0, letters.length -1)];
-    }
-
-    return getWordAdd(word, (options instanceof Object) ? options : null );
-  };
 
 }

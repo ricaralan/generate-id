@@ -1,6 +1,6 @@
 {
   "name": "generate-id",
-  "version": "1.5.1",
+  "version": "1.6.1",
   "description": "helper to generate ID's",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,8 @@
   },
   "keywords": [
     "generateid",
+    "generatorids",
+    "generator-ids",
     "generate-id"
   ],
   "author": "Alan Olivares <richard.alan.oli@gmail.com> (https://github.com/ricaralan)",
