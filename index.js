@@ -29,7 +29,7 @@ module.exports = function () {
   };
 
   function getArrayToGenerate(options) {
-    if(options && options instanceof Object && options.length > 0) {
+    if(options && options instanceof Object && options.length) {
       array = [];
       for(i in options) {
         if(toGenerate[options[i]]) {

@@ -1,6 +1,10 @@
 
 # generate-id
 
+![license](http://img.shields.io/npm/l/generate-id.svg?style=flat)
+![version](http://img.shields.io/npm/v/generate-id.svg?style=flat)
+![downloads](http://img.shields.io/npm/dm/generate-id.svg?style=flat)
+
 This package helps to generate IDs
 
 ```shell
