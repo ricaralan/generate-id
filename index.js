@@ -45,13 +45,16 @@ GenerateId.prototype._getArrayToGenerate = function(options) {
   if(options && options instanceof Object && options.length) {
     var array = [];
     var i = null;
+    
     for(i in options) {
       if(this._toGenerate[options[i]]) {
         array.push(this._toGenerate[options[i]]);
       }
     }
+
     return array;
   }
+
   return this._toGenerate;
 }
 
@@ -60,6 +63,7 @@ GenerateId.prototype._getWordAdd = function(word, options) {
     word  = (options.add.before) ? options.add.before + word : word;
     word += (options.add.after)  ? options.add.after : "";
   }
+
   return word;
 }
 
